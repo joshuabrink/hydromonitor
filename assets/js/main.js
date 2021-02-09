@@ -56,3 +56,16 @@ Chart.pluginService.register({
     ctx.save();
   }
 });
+
+
+const socket = io('http://localhost:3003')
+
+socket.on('readings', function (data) {
+        document.getElementById('outputSerial').innerText = data.value;
+});
+
+function stopReading() {
+        document.getElementById('stopReading').style.color = "green";
+        document.getElementById('stopReading').innerText = "";
+        socket.emit('stopReading', {value: false});
+}

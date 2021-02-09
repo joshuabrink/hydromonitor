@@ -27,21 +27,6 @@
   <p id='outputSerial'></p>
   <button id="stopReading" onclick="stopReading()">STOP</button>
 
-  <script  src="http://localhost:3003/socket.io/socket.io.js"></script>
-  <script type="text/javascript">
-          const socket = io('http://localhost:3003')
-
-          socket.on('readings', function (data) {
-                  document.getElementById('outputSerial').innerText = data.value;
-          });
-         
-          function stopReading() {
-                  document.getElementById('stopReading').style.color = "green";
-                  document.getElementById('stopReading').innerText = "";
-                  socket.emit('stopReading', {value: false});
-          }
-         
-  </script>
 </section>
 
 <%- include ('./partials/footer.ejs') %>
