@@ -1,0 +1,136 @@
+@use "sass:string";
+@mixin flexbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin flex($value) {
+  @if $value == auto {
+    -webkit-box-flex: 1;
+  }
+  @if $value == none {
+    -webkit-box-flex: 0;
+  }
+  -ms-flex:$value;
+  flex: $value;
+  -webkit-box-flex: string.unquote(string.slice($value+"", 1, 2));
+}
+
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+  align-items: $value;
+}
+
+@mixin align-self($value: auto) {
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: end;
+  } @else {
+    -ms-grid-row-align: $value;
+    -ms-flex-item-align: $value;
+  }
+  align-self: $value;
+}
+
+@mixin justify-content($value: flex-start) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else if $value == space-around {
+    -ms-flex-pack: distribute;
+  } @else {
+    -ms-flex-pack: $value;
+  }
+  justify-content: $value;
+}
+
+@mixin row($hor: center, $ver: center, $wrap: wrap) {
+  @include flexbox;
+  @include justify-content($hor);
+  @include align-items($ver);
+  @include flex-direction(row);
+  // @include prefix("flex-wrap", $wrap, [ms]);
+}
+
+@mixin col($hor: center, $ver: center) {
+  @include flexbox;
+  @include justify-content($ver);
+  @include align-items($hor);
+  @include flex-direction(column);
+}
+
+//DEFAULT CLASSES
+
+.col {
+  @include col;
+  &.start {
+    @include align-items(flex-start);
+  }
+  &.end {
+    @include align-items(flex-end);
+  }
+}
+
+.row {
+  @include row(center, center);
+
+  &.around {
+    @include justify-content(space-around);
+  }
+  &.between {
+    @include justify-content(space-between);
+  }
+  &.start {
+    @include justify-content(flex-start);
+  }
+  &.end {
+    @include justify-content(flex-end);
+  }
+}
+
+.flex {
+  @include flexbox;
+}
+
+.center {
+  @include justify-content(center);
+}
+
+.align-start {
+  @include align-items(start);
+}

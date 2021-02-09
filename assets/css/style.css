@@ -1,0 +1,153 @@
+.col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.col.start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.col.end {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.row.around {
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.row.between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.row.start {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+.row.end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.center {
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.align-start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+}
+
+.mx-1000 {
+  max-width: 1000px;
+}
+
+.mx-850 {
+  max-width: 850px;
+}
+
+.mx-750 {
+  max-width: 750px;
+}
+
+.mx-500 {
+  max-width: 500px;
+}
+
+.m-40 {
+  margin: 40px 0;
+}
+
+.p-40 {
+  padding: 40px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-33 {
+  width: 33.333%;
+}
+
+.w-66 {
+  width: 66.666%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+html, body {
+  height: 100%;
+  overflow: overlay;
+  overflow-x: hidden;
+}
+
+section {
+  height: 90%;
+}
+
+nav {
+  width: 100%;
+  height: 10%;
+}
+nav .logo {
+  width: 20%;
+  text-align: center;
+}
+nav .nav-list {
+  width: 30%;
+}
+
+.chart-container {
+  position: relative;
+  height: 100%;
+  width: 30vw;
+}
+
+/*# sourceMappingURL=style.css.map */
