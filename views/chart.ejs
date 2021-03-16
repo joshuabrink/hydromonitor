@@ -1,32 +1,49 @@
 <%- include ('./partials/header.ejs') %>
 
-<nav class="row between">
-  <h1 class="logo">logo</h1>
-  <div class="nav-list row around">
-    <a href="index.html">Charts</a>
-    <a href="pages/logs.html">Logs</a>
-    <a href="pages/settings.html">Settings</a>
-  </div>
-</nav>
+
 
 <!-- Add your site or application content here -->
 <section class="col w-100">
-  <div class="row">
-    <div class="chart-container">
-      <canvas class="myChart"></canvas>
+  <!-- <p>Count numbers: <output id="result"></output></p>
+  <button onclick="startWorker()">Start Worker</button>
+  <button onclick="stopWorker()">Stop Worker</button> -->
+  <div class="controls col">
+    <div class="col">
+      <!-- <h2>Preview Interval:</h2> -->
+      <h1 class="totalInterval"></h1>
     </div>
+    <div class="tickRate col">
+      <div class="row around w-100">
+        <h3>Tick Rate:</h3> 
+        <div class="valueContainer row">
+          <h2 class="value"></h2> <h2 class="interval">seconds</h2>
+        </div>
+       
+      </div>
+    </div>
+    <div class="tickCount col">
+      <div class="row around w-100">
+        <h3>Tick Count:</h3> 
+        <div class="valueContainer row">
+          <h2 class="value"></h2> <h2 class="interval">points</h2>
+        </div>
+       
+      </div>
 
-    <div class="chart-container">
-      <canvas class="myChart"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas class="myChart"></canvas>
     </div>
 
   </div>
-  <p id='outputSerial'></p>
-  <button id="stopReading" onclick="stopReading()">STOP</button>
+  <!-- <p id="value"></p>
+<div id="slider"></div> -->
+
+  <div class="row w-50 charts">
+    
+  </div>
+  <!-- <svg class="chart"></svg> -->
+
+  <!-- <p id='outputSerial'></p>
+  <button id="stopReading" onclick="stopReading()">STOP</button> -->
 
 </section>
 
-<%- include ('./partials/footer.ejs') %>
+<!-- <%- include ('./partials/footer.ejs') %> -->

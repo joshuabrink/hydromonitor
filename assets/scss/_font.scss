@@ -1,0 +1,19 @@
+@mixin font-face($family, $path, $weight: normal, $style: normal) {
+  /* raleway-regular - latin */
+  @font-face {
+    font-family: $family;
+    font-display: swap;
+    font-style: $style;
+    font-weight: $weight;
+    src: url($path + ".eot"); /* IE9 Compat Modes */
+    src: local(""), url($path + ".eot?#iefix") format("embedded-opentype"),
+      /* IE6-IE8 */ url($path + ".woff2") format("woff2"),
+      /* Super Modern Browsers */ url($path + ".woff") format("woff"),
+      /* Modern Browsers */ url($path + ".ttf") format("truetype"),
+      /* Safari, Android, iOS */ url($path + ".svg#Raleway") format("svg"); /* Legacy iOS */
+  }
+}
+@include font-face('Roboto','/fonts/Roboto-Regular');
+@include font-face('OpenSans','/fonts/OpenSans-Regular'); 
+@include font-face('RobotoMono','/fonts/RobotoMono-Regular'); 
+@include font-face('RobotoMonoLight','/fonts/RobotoMono-Light'); 

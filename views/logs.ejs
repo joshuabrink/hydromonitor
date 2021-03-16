@@ -1,0 +1,94 @@
+<%- include ('./partials/header.ejs') %>
+  <section class="col w-100">
+    <div class="col controls">
+      <h2>View Type:</h2>
+      <div class="row around w-100 views">
+        <button class="btn chart-view">Chart</button>
+        <button class="btn table-view">Table</button>
+      </div>
+
+
+      <div class="calendar-assets">
+        <h2 id="currentDate"></h2>
+        <!-- <div class="field">
+            <label for="date">Pesquisa por data</label>
+            <form class="form-input" id="date-search" onsubmit="return setDate(this)">
+                <input type="date" class="text-field" name="date" id="date" required>
+                <button type="submit" class="btn btn-small" title="Pesquisar"><i class="fas fa-search"></i></button>
+            </form>
+        </div> -->
+        <div class="day-assets">
+          <button class="btn" onclick="prevDay()" title="Previous day"><img src="/img/left.svg" alt="Previous Day"></button>
+          <button class="btn" onclick="resetDate()" title="Current day">Today</button>
+          <button class="btn" onclick="nextDay()" title="Next day"><img src="/img/right.svg" alt="Next Day"> </button>
+        </div>
+      </div>
+      <div class="calendar" id="table">
+        <div class="header">
+          <div class="month" id="month-header">
+
+          </div>
+          <div class="buttons">
+            <button class="icon" onclick="prevMonth()" title="Previous month"><img src="/img/left-sm.svg" alt="Previous Month"></button>
+            <button class="icon" onclick="nextMonth()" title="Next month"><img src="/img/right-sm.svg" alt="Next Month"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col w-50">
+      <div class="log row w-100">
+        <div class="log-headers row w-100">
+          <div class="row header" data-key="date">
+            <p>Time</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="phLevel">
+            <p>pH</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="ppmLevel">
+            <p>PPM</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="ecLevel">
+            <p>EC</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="tempWater">
+            <p>Water</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="tempAir">
+            <p>Air</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+          <div class="row header" data-key="lightLevel">
+            <p>Light</p>
+            <img class="asc" src="/img/up.svg" alt="Sort Ascending">
+            <img class="dec" src="/img/down.svg" alt="Sort Decsending">
+          </div>
+
+        </div>
+        <div class="log-body col w-100">
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>

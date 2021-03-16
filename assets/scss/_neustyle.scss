@@ -1,0 +1,60 @@
+@use "sass:list";
+
+$prefixes: "webkit", "ms", "o", "none";
+@mixin prefix($property, $value, $selected) {
+  @each $prefix in $prefixes {
+    @if $prefix == "none" {
+      #{$property}: $value;
+    } @else {
+      @if list.index($selected,$prefix) {
+        -#{$prefix}-#{$property}: $value;
+      }
+    }
+  }
+}
+
+@mixin neustyle($color, $hover: false, $direction: topleft, $inset: false, $distance: 2px) {
+  @include prefix("transition", box-shadow 0.3s ease, (o,webkit));
+  $v: 2px;
+
+  @if $distance {
+    $v: $distance;
+  }
+
+  $topX: ($v * 2 * -1);
+  $topY: ($v * 2 * -1);
+
+  @if $direction == "topcenter" {
+    $topX: 0px;
+    $topY: ($v * 2 * -1);
+  }
+  @if $direction == "topright" {
+    $topX: ($v * 2);
+    $topY: ($v * 2 * -1);
+  }
+
+  $out: $topX $topY ($v * 3) rgba(lighten($color,15), 0.7), $topX * -1 $topY * -1 ($v * 3) darken($color, 12),
+    inset $topX $topY ($v * 6) rgba(lighten($color,8), 0.1), inset $topX * -1 $topY * -1 ($v * 6) darken($color, 0);
+
+  $in: $topX $topY ($v * 5) rgba(lighten($color,8), 0.2), $topX * -1 $topY * -1 ($v * 3) darken($color, 0),
+    inset $topX $topY ($v * 6) rgba(lighten($color,8), 0.6), inset $topX/2 $topY/2 ($v) rgba(lighten($color,15), 0.2),
+    inset $topX * -1 $topY * -1 ($v * 3) darken($color, 10);
+
+  @if $inset {
+    box-shadow: $in;
+  } @else {
+    box-shadow: $out;
+  }
+
+  @if $hover {
+    &:hover {
+      @if $inset {
+        -webkit-box-shadow: $out;
+        box-shadow: $out;
+      } @else {
+        -webkit-box-shadow: $in;
+        box-shadow: $in;
+      }
+    }
+  }
+}

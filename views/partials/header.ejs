@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Home</title>
+ 
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,15 +18,26 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/Chart.min.css">
   <link rel="stylesheet" href="css/style.css">
 
   <script defer src="http://localhost:3003/socket.io/socket.io.js"></script>
-
+  <script defer src="js/vendor/d3.v6.min.js"></script>
+  <script defer src="js/vendor/d3-simple-slider.min.js"></script>
   <script defer src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script defer src="js/plugins.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.js"></script>
-  <script defer src="js/main.js"></script>
+  <script defer src="js/linechart.js"></script>
+
+  <% if (page) { %>
+    <% if (page === 'Charts') { %>
+      <script defer src="js/main.js"></script>
+      <title><%= page %></title>
+    <% } %>
+    <% if (page === 'Logs') { %>
+      <script defer src="js/logs.js"></script>
+      <title><%= page %></title>
+    <% } %>
+  <% } %>
+
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script defer>
@@ -37,3 +48,23 @@
 
   <meta name="theme-color" content="#fafafa">
 </head>
+
+<nav class="row between">
+  <!-- <h1 class="logo">logo</h1> -->
+  <div class="logoContainer">
+    <img class="logo" src="/img/logo.svg" alt="">
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+
+  <div class="nav-list row around">
+    <a href="/">Charts</a>
+    <a href="/logs">Logs</a>
+    <!-- <a href="pages/settings.html">Settings</a> -->
+  </div>
+</nav>
+
+<!-- <div class="nav-spacer">
+
+
+</div> -->

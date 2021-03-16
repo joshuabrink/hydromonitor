@@ -1,29 +1,487 @@
 @import "flexbox";
 @import "spacing";
+@import "font";
+@import "neustyle";
+@import "scrollbar";
+
+$bg-color: #174435;
+$secondary-color: #006837;
+$tetiary-color: #39B54A;
+$text-color: #fff;
 
 html,body {
+  @include scrollbars(10px, $secondary-color, $bg-color);
   height: 100%;
   overflow: overlay;
   overflow-x: hidden;
+  background-color: $bg-color;
 }
 
-section {
-  height: 90%;
+h1,h2,h3,p,th,td, a {
+  color: $text-color;
+  font-family: 'OpenSans';
+  font-weight: normal;
 }
 
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 15px 0;
+}
+
+.log {
+  flex-wrap: wrap;
+
+  &-headers {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid white;
+    .header {
+      width: 16.66%;
+      position: relative;
+      p {
+        width: 100%;
+        text-align: center;
+      }
+      img{
+        @include neustyle($bg-color, true, topcenter, false, 1px);
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        // top: 13px;
+        // bottom: 13px;
+      }
+      .asc {
+          right: 20px;
+      }
+      .dec {
+          right: 0px;
+      }
+
+    }
+    // justify-content: space-around;
+ 
+  }
+  &-body {
+    .row {
+      padding-bottom: 10px;
+    }
+  }
+
+  &-header, &-body .row {
+    p {
+      width: 16.66%;
+      text-align: center;
+    }
+  }
+}
 
 nav {
   width: 100%;
   height: 10%;
+  position: absolute;
+
+  .logoContainer {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    margin-top: 230px;
+    margin-left: 40px;
+    border-radius: 50%;
+    @include neustyle($bg-color, true, topcenter, false,1px);
+  }
+  .wave {
+    background: url(/img/wave.svg) repeat-x; 
+    position: absolute;
+    bottom: 0;
+    width: 986px;
+    height: 160px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+  }
+  .wave:nth-of-type(2) {
+    bottom: 0;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 1;
+  }
+  
+  @keyframes wave {
+    0% {
+      margin-left: 0;
+    }
+    100% {
+      margin-left: -593px;
+    }
+  }
+  
+  @keyframes swell {
+    0%, 100% {
+      transform: translate3d(0,-15px,0);
+    }
+    50% {
+      transform: translate3d(0,5px,0);
+    }
+  }
   .logo {
-    width: 20%;
-    text-align: center;
+    z-index: 10;
+    position: absolute;
   }
   .nav-list {
-    width: 30%;
+    position: absolute;
+    right: 0;
+    width: 454px;
+    a {
+      @include neustyle($bg-color, true, topcenter, false,1px);
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
   }
 }
 
-.chart-container {
-  position: relative; height:100%; width:30vw;
+.charts {
+  flex-wrap: wrap;
+}
+
+.chart {
+  width: 50%;
+  transition: all ease 0.5s;
+  position: relative;
+  .sizeBtn {
+    width: 25px;
+    height: 25px;
+    @include neustyle($bg-color, true, topleft, false,1px);
+    border-radius: 5px;
+    cursor: pointer;
+    // background: white;
+    position: absolute;
+    top: 25px;
+    right: 0;
+  }
+}
+
+.nav-spacer {
+  height: 10%;
+}
+
+.controls {
+  position: absolute;
+  right: 50px;
+  top: 100px;
+  border-radius: 20px;
+  @include neustyle($bg-color, false, topcenter);
+
+  h2 {
+    margin: 8px;
+  }
+
+  .tickRate {
+    .interval {
+      width: 42px;
+    }
+  }
+
+  .interval {
+    font-size: 16px;
+    margin: 0
+  }
+
+  .value {
+    @include neustyle($bg-color, false,  topleft, true);
+    padding: 0 5px;
+    border-radius: 5px;
+    font-family: 'RobotoMonoLight';
+  }
+
+  .totalInterval {
+    @include neustyle($bg-color, false,  topleft, true);
+    padding: 0 5px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-family: 'RobotoMonoLight';
+  }
+}
+
+path {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+
+svg {
+  .mouseOverlay, .zoomPercent {
+    opacity: 0;
+  }
+
+  .label_group {
+    text {
+      fill: #000;
+      text-anchor: middle;
+    }
+  }
+  .label-bg {
+    fill: #ffffff;
+    stroke: 1px solid white;
+  }
+  text {
+    fill: $text-color;
+    font-family: 'RobotoMono';
+  }
+  .rawLine {
+    stroke: $text-color + 'b1';
+  }
+  .smoothLine {
+    stroke: $text-color;
+  }
+  .gxLabel, .gyLabel {
+    &> path {
+      stroke: $text-color;
+    }
+    line {
+      stroke: $text-color;
+    }
+  }
+  .gridXLabel,.gridYLabel {
+    &> path {
+      stroke: rgba(255, 255, 255, 0.2);
+    }
+    line {
+      stroke: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+
+}
+
+footer {
+  height: 10%;
+}
+
+//Calendar Styles
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input,
+button,
+textarea {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+}
+
+
+/* Basis */
+
+.btn {
+    font-family: 'OpenSans';
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    @include neustyle($bg-color, true);
+    background: $bg-color;
+    color: $text-color;
+
+    border-radius: 10px;
+    height: 50px;
+
+    min-width: 100px;
+    padding: 0px 20px;
+    transition: 0.2s ease;
+    cursor: pointer;
+    outline: 0;
+}
+
+// .btn:hover {
+//     color: #FFF;
+//     background: #455AF7;
+// }
+
+.btn-small {
+    min-width: 50px;
+}
+
+
+.btn-day {
+    font-family: 'OpenSans';
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 99;
+    outline: 0;
+    border-radius: 10px;
+    transition: 0.4s all;
+}
+
+.btn-day.active {
+    color: #FFF;
+    z-index: 99;
+}
+
+.btn-day.active::before {
+    position: absolute;
+    content: '';
+    width: 40px;
+    height: 40px;
+    // background: #455AF7;
+    @include neustyle($bg-color, false,  topleft, true);
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.text-field {
+    padding: 10px;
+    height: 50px;
+    width: 200px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin: 0px 10px 0 0;
+}
+
+.title {
+    font-size: 1.3em;
+}
+
+.subtitle {
+    font-size: 1.1em;
+}
+
+/* Calendar */
+
+.calendar-assets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+#currentDate{
+  text-align:center;
+}
+
+.field {
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.field label {
+    margin: 2px;
+}
+
+.form-input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-assets {
+    display: flex;
+    justify-content: space-between;
+    width: 324px;
+}
+
+
+
+.day-assets .btn:nth-child(2) i {
+    padding: 0 10px 0 0 !important;
+}
+
+.calendar {
+    height: 370px;
+    width: 100%;
+    border-radius: 18px;
+    background: $bg-color;
+    @include neustyle($bg-color);
+    margin-top: 15px;
+	  padding: 10px;
+	  user-select: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 18px 18px 0px 0px;
+    padding: 15px;
+    height: 50px;
+    width: 100%;
+    h1 {
+      color: white;
+    }
+  
+}
+
+.month {
+    font-size: 0.7em;
+}
+
+.icon {
+    padding: 10px;
+    font-size: 1em;
+    margin: 0 0 0 5px;
+    background: $bg-color;
+    color: #455af7;
+    border: none;
+    cursor: pointer;
+    outline: 0;
+}
+
+.icon:hover {
+    cursor: pointer;
+}
+
+#calendar {
+    width: 100%;
+}
+
+.weekends th {
+    font-size: 1em;
+    color: $tetiary-color;
+    font-weight: 400;
+    width: 40px;
+    margin: 10px 0;
+}
+
+#calendar tr {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin: 3px;
+}
+
+#calendar td {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 99;
 }

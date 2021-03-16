@@ -1,50 +1,14 @@
+
 (async () => {
-  // const https = require('https')
   const express = require('express')
-
   const app = express()
-  // const fs = require('fs')
   const mongo = require('./lib/mongoUtil')
-  const session = require('express-session')
-  const cookieParser = require('cookie-parser')
-  const flash = require('connect-flash')
   const path = require('path')
-  const io = require('socket.io')(3003, {
-    cors: {
-      origin: "http://localhost:8082",
-      methods: ["GET", "POST"]
-    }
-  });
-  const SerialPort = require('serialport');
-  const Readline = require('@serialport/parser-readline');
-  const port = new SerialPort('/COM9', { baudRate: 9600 });
-  const parser = port.pipe(new Readline({ delimiter: '\n' }));
 
-  port.on("open", (err) => {
-    if (err) {
-      return console.log("Error: " + err)
-    }
-    console.log('serial port open');
-  });
+  app.use(express.static(path.join(__dirname, 'assets')))
 
-  parser.on('data', data => {
-
-    io.sockets.emit('readings', { value: data });
-    console.log('got word from arduino:', data);
-  });
-
-  io.on('connection', (socket) => {
-
-    console.log('socket connected to by client')
-
-    socket.on('stopReading', function (data) {
-      port.close((err) => {
-        if (err)
-          console.log(err);
-      })
-    });
-  })
-
+  // EJS View Engine
+  app.set('view engine', 'ejs')
 
   // Logger
   const pino = require('pino')
@@ -57,8 +21,7 @@
 
   // Databse initialization
   await mongo.init()
-
-
+  const socketHandler = require('./lib/socketUtil')
   // Express Cookie
   // app.use(cookieParser('secretString'))
   // app.set('trust proxy', 1) // trust first proxy
@@ -81,20 +44,28 @@
   //   next()
   // })
 
-  app.use(express.static(path.join(__dirname, 'assets')))
-
-  // EJS View Engine
-  app.set('view engine', 'ejs')
-
-
-  app.use(function (err, req, res, next) {
-    logger.debug(err)
-    return res.status(err.statusCode).json({ message: err.message, stack: err.stack })
-  })
+  // app.use(function (err, req, res, next) {
+  //   logger.debug(err)
+  //   return res.status(err.statusCode).json({ message: err.message, stack: err.stack })
+  // })
 
   app.get('/', (req, res) => {
-    res.render('chart')
+    res.render('chart', { page: 'Charts' })
   })
+
+  app.get('/logs', (req, res) => {
+    res.render('logs', { page: 'Logs' })
+  })
+
+  // app.get('/data', (req,res)=> {
+  //   let data = fs.readFileSync('./lib/data/data.csv').toString();
+  //   res.send(data)
+  // })
+
+  // app.post('/data', (req,res)=> {
+  //   let data = fs.readFileSync('./lib/data/data.csv').toString();
+  //   res.send(data)
+  // })
 
   // 404 Page
 
@@ -103,6 +74,4 @@
   })
 
   app.listen(8082)
-
-
 })()
